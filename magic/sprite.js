@@ -144,3 +144,19 @@ Sprite.prototype.contains =
 		return false; 
 	    }
     };
+
+// checks if point is inside sprite
+
+Sprite.prototype.collidesAt = function( x, y ) {
+    var x1 = this.getRenderX();
+    var y1 = this.getRenderY();
+    var w1 = this.width;
+    var h1 = this.height;
+
+    if( x >= x1 && x <= x1 + w1 &&
+	y >= y1 && y <= y1 + h1 ) {
+	    return true;
+	} else {
+	    return false;
+	}
+};

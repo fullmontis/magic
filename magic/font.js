@@ -30,8 +30,20 @@ function Font( bitmap, fontChars, fontWidth, fontHeight, fontSpace, fontBottom )
 	];
     }
     
-    this.render = function( context, string, x, y, scale ) {
+    this.render = function( context, string, x, y, scale, anchorX, anchorY ) {
 	scale = scale || 1;
+
+	// anchor = 0 for left/top align
+	// anchor = 1 for right/bottom align
+	anchorX = anchorX || 0; 
+	anchorY = anchorY || 0;
+	
+	var stringPixelLength = 
+		string.length * (this.fontWidth + this.fontSpace) - this.fontSpace;
+
+	x = x - (anchorX * stringPixelLength) | 0;
+	y = y - (anchorY * this.fontHeight) | 0;
+
 	for( var i=0; i < string.length; i++ ) {
 	    if( string[i] != ' ' ) { // no need to waste time rendering spaces :D
 		context.drawImage( this.bitmap, 

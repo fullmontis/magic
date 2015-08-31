@@ -8,11 +8,13 @@
 // TODO: add destroy(), destroyUpdate(), destroyRender(), 
 // createUpdate(), createRender() to the functions of each state
     
-function State( update, render) {
+function State( update, render ) {
     this.update = update;
     this.render = render;
 }
 
+
+State.prototype.create = function() {};
 State.prototype.update = function( dt ) {};
 State.prototype.render = function( context ) {};
 
