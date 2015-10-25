@@ -78,13 +78,19 @@ Sprite.prototype.render = function( context ) {
     
     if( this.visible ) {
 	context.save();
+
 	context.globalAlpha = this.alpha;
+	context.translate( this.x, this.y );
+	context.rotate( this.angle );
+
 	if( this.image == SPRITE_NO_IMG ) {
-	    context.rect( this.getRenderX(), this.getRenderY(), 
+	    context.rect( -this.anchorX * this.width  | 0, 
+			  -this.anchorY * this.height | 0, 
 			  this.width, this.height, this.fill );
 	} else {
 	    context.drawImage( this.image, 
-			       this.getRenderX(), this.getRenderY(), 
+			       -this.anchorX * this.width  | 0, 
+			       -this.anchorY * this.height | 0,
 			       this.width, this.height );
 	} 
 	context.restore();
