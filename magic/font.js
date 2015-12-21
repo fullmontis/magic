@@ -38,11 +38,10 @@ function Font( bitmap, fontChars, fontWidth, fontHeight, fontSpace, fontBottom )
 	anchorX = anchorX || 0; 
 	anchorY = anchorY || 0;
 	
-	var stringPixelLength = 
-		string.length * (this.fontWidth + this.fontSpace) - this.fontSpace;
+	var stringPixelLength = this.stringPixelWidth( string );
 
-	x = x - (anchorX * stringPixelLength) | 0;
-	y = y - (anchorY * this.fontHeight) | 0;
+	x = x - (anchorX * stringPixelLength * scale) | 0;
+	y = y - (anchorY * this.fontHeight * scale) | 0;
 
 	for( var i=0; i < string.length; i++ ) {
 	    if( string[i] != ' ' ) { // no need to waste time rendering spaces :D
@@ -55,6 +54,10 @@ function Font( bitmap, fontChars, fontWidth, fontHeight, fontSpace, fontBottom )
 				   this.fontWidth * scale, this.fontHeight * scale );
 	    }
 	}
+    };
+
+    this.stringPixelWidth = function( string ) {
+	return string.length * (this.fontWidth + this.fontSpace) - this.fontSpace;
     };
 }
 

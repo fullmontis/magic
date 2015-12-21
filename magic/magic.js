@@ -2,7 +2,7 @@
 
 "use strict";
 
-function Magic( width, height, parentId, lockMouse ) {
+function Magic( width, height, parentId, startState, lockMouse ) {
 
     var _this = this; // used for reference in objects, ugly as death, must remove
 
@@ -90,7 +90,7 @@ function Magic( width, height, parentId, lockMouse ) {
 		}
 		
 		// start the actual game
-		this.state.push('game');
+		this.state.push(startState);
 	    }
 	}.bind(this);
     };

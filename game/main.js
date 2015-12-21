@@ -1,6 +1,10 @@
 "use strict";
 
-var game = new Magic( 500, 400, 'game' );
+var game = new Magic( 500, // canvas width
+		      400, // canvas height
+		      'game', // canvas element
+		      'game'  // state to boot into
+		    );
 var mouse = new Mouse( game.canvas );
 var keys = new Keyboard();
 var fps = new FPS();
