@@ -11,7 +11,7 @@ var fps = new FPS();
 
 // constants 
 
-game.context.fillColor = '#aaa';
+game.context.clearColor = '#aaa';
 
 // Resources
 
@@ -39,7 +39,7 @@ game.state['game'].update = function( dt ) {
 };
 
 game.state['game'].render = function( context ) {
-    context.fill();
+    context.clear();
 
     // render code here
 };

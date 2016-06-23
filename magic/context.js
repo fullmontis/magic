@@ -1,6 +1,6 @@
 // Canvas2DContext Extension
 
-CanvasRenderingContext2D.prototype.fillColor = "#ccc";
+CanvasRenderingContext2D.prototype.clearColor = "#ccc";
  
 CanvasRenderingContext2D.prototype.rect = 
     function( x, y, w, h, color, alpha, stroke ) {
@@ -92,16 +92,10 @@ CanvasRenderingContext2D.prototype.text =
 	this.restore();
     };
 
-CanvasRenderingContext2D.prototype.fill = 
+CanvasRenderingContext2D.prototype.clear = 
     function() {
-	this.fillStyle = this.fillColor;
+	this.fillStyle = this.clearColor;
 	this.fillRect( 0, 0, 
 		       this.canvas.width, 
 		       this.canvas.height );
-    };
-
-CanvasRenderingContext2D.prototype.clear = 
-    function() {
-	this.clearRect(0, 0, this.canvas.width, this.canvas.height,
-		       this.fillColor);
     };
