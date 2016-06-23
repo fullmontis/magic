@@ -1,23 +1,29 @@
 // Mouse input
 
 function Mouse( canvas ) {
-    
+
     this.canvas = canvas;
 
-    this.x = 0; 
+    this.x = 0;
     this.y = 0;
-    this.dx = 0; 
+    this.dx = 0;
     this.dy = 0;
-    
-    var buttonObject = {
-	isDown: false,
-	isClicked: false,
-	isReleased: false
-    };
 
-    this.left = buttonObject;
-    this.middle = buttonObject;
-    this.right = buttonObject;
+    this.isDown = {
+	left: false,
+	right: false,
+	middle: false
+    };
+    this.isClicked = {
+	left: false,
+	right: false,
+	middle: false
+    };
+    this.isReleased = {
+	left: false,
+	right: false,
+	middle: false
+    };
 
     var xold = 0;
     var yold = 0;
@@ -26,49 +32,49 @@ function Mouse( canvas ) {
     var rold = 0;
 
     this.update = function () {
-	if (this.left.isDown && !lold) { 
-	    this.left.isClicked = true; 
-	} else { 
-	    this.left.isClicked = false; 
+	if (this.isDown.left && !lold) {
+	    this.isClicked.left = true;
+	} else {
+	    this.isClicked.left = false;
 	}
 
-	if (this.middle.isDown && !mold) { 
-	    this.middle.isClicked = true; 
-	} else { 
-	    this.middle.isClicked = false; 
+	if (this.isDown.middle && !mold) {
+	    this.isClicked.middle = true;
+	} else {
+	    this.isClicked.middle = false;
 	}
 
-	if (this.right.isDown && !rold) { 
-	    this.right.isClicked = true; 
-	} else { 
-	    this.right.isClicked = false; 
+	if (this.isDown.right && !rold) {
+	    this.isClicked.right = true;
+	} else {
+	    this.isClicked.right = false;
 	}
 
-	if (!this.left.isDown && lold) { 
-	    this.left.isReleased = true; 
-	} else { 
-	    this.left.isReleased = false; 
+	if (!this.isDown.left && lold) {
+	    this.isReleased.left = true;
+	} else {
+	    this.isReleased.left = false;
 	}
 
-	if (!this.middle.isDown && mold) { 
-	    this.middle.isReleased = true; 
-	} else { 
-	    this.middle.isReleased = false; 
+	if (!this.isDown.middle && mold) {
+	    this.isReleased.middle = true;
+	} else {
+	    this.isReleased.middle = false;
 	}
 
-	if (!this.right.isDown && rold) { 
-	    this.right.isReleased = true; 
-	} else { 
-	    this.right.isReleased = false; 
+	if (!this.isDown.right && rold) {
+	    this.isReleased.right = true;
+	} else {
+	    this.isReleased.right = false;
 	}
-	
-	lold = this.left.isDown;
-	mold = this.middle.isDown;
-	rold = this.right.isDown;
-	
+
+	lold = this.isDown.left;
+	mold = this.isDown.middle;
+	rold = this.isDown.right;
+
 	this.dx = this.x - xold;
 	this.dy = this.y - yold;
-	
+
 	xold = this.x;
 	yold = this.y;
     };
@@ -80,16 +86,16 @@ function Mouse( canvas ) {
 
     this.canvas.addEventListener( 'mousedown', function(e){
 	e.preventDefault();
-	if (e.which == 1) { this.left.isDown = true; }
-	if (e.which == 2) { this.middle.isDown = true; }
-	if (e.which == 3) { this.right.isDown = true; }
+	if (e.which == 1) { this.isDown.left = true; }
+	if (e.which == 2) { this.isDown.middle = true; }
+	if (e.which == 3) { this.isDown.right = true; }
     }.bind(this), false);
 
     this.canvas.addEventListener( 'mouseup', function(e){
 	e.preventDefault();
-	if (e.which == 1) { this.left.isDown = false; }
-	if (e.which == 2) { this.middle.isDown = false; }
-	if (e.which == 3) { this.right.isDown = false; }
+	if (e.which == 1) { this.isDown.left = false; }
+	if (e.which == 2) { this.isDown.middle = false; }
+	if (e.which == 3) { this.isDown.right = false; }
     }.bind(this), false);
 
 }

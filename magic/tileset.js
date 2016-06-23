@@ -16,7 +16,7 @@ function Tileset( image, tileWidth, tileHeight ) {
     var tileId = 0;
     for( var ty = 0; ty < this.tileNumberY; ty++ ) {
 	for( var tx = 0; tx < this.tileNumberX; tx++ ) {
-	    tileId = ty * this.tileNumberY + tx;
+	    tileId = ty * this.tileNumberX + tx;
 	    this.hash[tileId] = [
 		tx * this.tileWidth,
 		ty * this.tileHeight
@@ -24,7 +24,7 @@ function Tileset( image, tileWidth, tileHeight ) {
 	}	
     }
 
-    this.render = function( context, tileId, x, y, firstgid ) {
+    this.render = function( context, tileId, x, y ) {
 	if( tileId >= 0 ) { // only draw acceptable tiles, ignore the others
 	    context.drawImage( this.image, 
 			       this.hash[tileId][0], 
