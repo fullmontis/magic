@@ -2,6 +2,11 @@
 
 "use strict";
 
+// to gain focus to the window when used in iframes like on itch.io
+
+window.onload = function () { window.focus(); };
+window.onclick = function () { window.focus(); };
+
 function Magic( width, height, parentId, startState, lockMouse ) {
 
     var _this = this; // used for reference in objects, ugly as death, must remove
@@ -198,21 +203,21 @@ function Magic( width, height, parentId, startState, lockMouse ) {
 
     this.preloadWrapper = function() {
 	this.preload();
-	this.mainLoop();
+	this.updateLoop();
+	this.renderLoop();
     };
     
     // Main loop logic
 
-    this.mainLoop = function () {
-
-	// update game logic
+    // update loop
+    this.updateLoop = function() {
 	this.state.update();
+	setTimeout( this.updateLoop, 33 );// 30fps
+    }.bind(this);
 
-	// paint next frame
+    // render loop
+    this.renderLoop = function () {
 	this.state.render( this.context );
-
-	// call next frame
-	requestAnimationFrame( this.mainLoop );
-
+	requestAnimationFrame( this.renderLoop );
     }.bind(this);
 }

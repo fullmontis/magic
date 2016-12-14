@@ -1,9 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <title>Magic Engine</title>
-  <link href="style.css" rel="stylesheet" type="text/css">
-  
+  <style type="text/css">
+    #game {
+    width: 500px;
+    height: 400px;
+    margin: 0 auto;
+    border: 1px solid #000;
+    margin-top: 50px;
+    }
+    
+    body {
+    margin: 0;
+    border: 0;
+    background-color: #fff;
+    }
+  </style>
   <script type="text/javascript" src="magic/tileset.js"></script>
   <script type="text/javascript" src="magic/audio.js"></script>
   <script type="text/javascript" src="magic/context.js"></script>
@@ -17,6 +30,7 @@
   <script type="text/javascript" src="magic/fps.js"></script>
   <script type="text/javascript" src="magic/boundary.js"></script>
   <script type="text/javascript" src="magic/font.js"></script>
+  <script type="text/javascript" src="magic/box.js"></script>
 </head>
 <body>
   <div id="game"></div>
