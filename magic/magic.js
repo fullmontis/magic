@@ -7,10 +7,12 @@
 window.onload = function () { window.focus(); };
 window.onclick = function () { window.focus(); };
 
+
 function Magic( width, height, parentId, startState, lockMouse ) {
 
     var _this = this; // used for reference in objects, ugly as death, must remove
 
+    
     // Find useable audio extensions for the browser
     this.audioCodec = (function() {
 	var audio = document.createElement("audio");
@@ -29,6 +31,11 @@ function Magic( width, height, parentId, startState, lockMouse ) {
     this.canvas.width = width;
     this.canvas.height = height;
 
+    this.canvas.goFullScreen =
+	this.canvas.requestFullScreen ||
+	this.canvas.webkitRequestFullScreen ||
+	this.canvas.mozRequestFullScreen;
+    
     document.getElementById(parentId).appendChild(this.canvas);
 
     this.canvas.oncontextmenu = function() { return false; };
