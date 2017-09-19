@@ -64,9 +64,6 @@ function Magic( width, height, parentId, startState, lockMouse ) {
     this.context.mozImageSmoothingEnabled = false;
     this.context.webkitImageSmoothingEnabled = false;
 
-    // background color
-    this.context.fillColor = '#fff';
-
     // Game starts here
     this.start = function() {
 	this.state['boot'].img = new Image();
@@ -219,7 +216,7 @@ function Magic( width, height, parentId, startState, lockMouse ) {
     // update loop
     this.updateLoop = function() {
 	this.state.update();
-	setTimeout( this.updateLoop, 33 );// 30fps
+	requestAnimationFrame( this.updateLoop );
     }.bind(this);
 
     // render loop
