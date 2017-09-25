@@ -22,7 +22,7 @@ function Magic( width, height, parentId, startState, lockMouse ) {
 	if (canplayogg) {
             return "ogg";
 	} else {
-            return "aac";
+            return "m4a";
 	}
     })();
 
@@ -111,13 +111,13 @@ function Magic( width, height, parentId, startState, lockMouse ) {
 	this.load.pending.push(imageId);
     }.bind(this);
 
-    this.load.sound = function( soundId, oggUrl, aacUrl ) {
+    this.load.sound = function( soundId, oggUrl, m4aUrl ) {
 	var url;
 
 	if( this.audioCodec == 'ogg' ) {
 	    url = oggUrl;  
 	} else {
-	    url = aacUrl;
+	    url = m4aUrl;
 	} 
 
 	this.sound[soundId] = new Audio();
