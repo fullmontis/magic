@@ -2,29 +2,27 @@
 
 "use strict";
 
-// to gain focus to the window when used in iframes like on itch.io
-
 window.onload = function () { window.focus(); };
 window.onclick = function () { window.focus(); };
+window.focused = false;
+window.onblur = function() { this.focused = false; };
+window.onfocus = function() { this.focused = true; };
 
-
-function Magic( width, height, parentId, startState, lockMouse ) {
-
+function Magic( width, height, parentId, startState, lockMouse )
+{
     var _this = this; // used for reference in objects, ugly as death, must remove
 
-    
     // Find useable audio extensions for the browser
     this.audioCodec = (function() {
 	var audio = document.createElement("audio");
 	var canplayogg = (typeof audio.canPlayType === "function" && 
 			  audio.canPlayType("audio/ogg") !== "");
-
 	if (canplayogg) {
             return "ogg";
 	} else {
             return "m4a";
 	}
-    })();
+    }());
 
     // The main canvas element on which we are going to operate
     this.canvas = document.createElement('canvas');
@@ -39,7 +37,7 @@ function Magic( width, height, parentId, startState, lockMouse ) {
     document.getElementById(parentId).appendChild(this.canvas);
 
     this.canvas.oncontextmenu = function() { return false; };
- 
+
     // mouse pointer locking
  
     if( lockMouse ) {
@@ -68,19 +66,18 @@ function Magic( width, height, parentId, startState, lockMouse ) {
     this.start = function() {
 	this.state['boot'].img = new Image();
 	this.state['boot'].img.onload = this.preloadWrapper.bind(this);
-	this.state['boot'].img.src = 'img/boot/boot.png';
+	this.state['boot'].img.src = 'img/boot.png';
     };
 
     // Assets loading and management
 
-    this.load = {};
+    this.load  = {
+	complete: [],
+	pending: []
+    };
     this.image = {};
     this.sound = {};
     this.map   = {};
-
-    // the list to which complete files will go
-    this.load.complete = []; 
-    this.load.pending  = [];
 
     // Callback function used for data loading success
     this.loaded = function( itemId, type, file ) {
@@ -209,19 +206,25 @@ function Magic( width, height, parentId, startState, lockMouse ) {
 	this.preload();
 	this.updateLoop();
 	this.renderLoop();
-    };
+    }.bind(this);
     
-    // Main loop logic
-
-    // update loop
     this.updateLoop = function() {
 	this.state.update();
 	requestAnimationFrame( this.updateLoop );
     }.bind(this);
 
-    // render loop
     this.renderLoop = function () {
 	this.state.render( this.context );
 	requestAnimationFrame( this.renderLoop );
     }.bind(this);
 }
+
+function State( update, render ) {
+    this.update = update;
+    this.render = render;
+}
+
+State.prototype.create = function() {};
+State.prototype.update = function( dt ) {};
+State.prototype.render = function( context ) {};
+

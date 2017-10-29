@@ -1,6 +1,4 @@
-// Todo: wrap text (maybe in textbox class?)
-
-function Font( bitmap, fontChars, fontWidth, fontHeight, fontSpace, fontBottom ) {
+function BitmapFont( bitmap, fontChars, fontWidth, fontHeight, fontSpace, fontBottom ) {
     this.bitmap = bitmap;
     this.fontChars = fontChars;
     this.fontWidth = fontWidth;
@@ -61,4 +59,44 @@ function Font( bitmap, fontChars, fontWidth, fontHeight, fontSpace, fontBottom )
     };
 }
 
+function fillTextWrap( context, text, x, y, w, lineHeight, nchars )
+{   
+    if( nchars == undefined || nchars > text.length ) nchars = text.length;
+    var lines = getTextLines( context, text, w );
+    var line = "";
+    var align = context.textAlign;
+    context.textAlign = "left";
+    for( var i=0; i<lines.length; i++ ) {
+	var dx = 0;
+	if( align == "center" ) {
+	    dx = -context.measureText(lines[i]).width/2;
+	} else {
+	    dx = 0;
+	}
+	nchars -= lines[i].length;
+	if( nchars >= 0 ) {
+            context.fillText( lines[i], x + dx, y + i*lineHeight );
+	} else {
+	    context.fillText( lines[i].substr(0, lines[i].length+nchars ), x + dx, y + i*lineHeight );
+            break;
+	}
+    }
+    context.textAlign = align;
+}
 
+function getTextLines( context, text, width )
+{
+    var words = text.split(' ');
+    var line = "";
+    var lines = [];
+    for( var i=0; i<words.length; i++ ) {
+	if( context.measureText(line + words[i]).width < width ) {
+	    line += words[i] + " ";
+	} else {
+	    lines.push(line);
+	    line = words[i] + " ";
+	}
+    }
+    lines.push(line);
+    return lines;
+}
