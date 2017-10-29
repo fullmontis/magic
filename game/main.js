@@ -67,7 +67,7 @@ function newSprite( props ) {
 }
 
 var sprites = {};
-var spriteOrder = ["border", "directions", "cursor"];
+var spriteOrder = [];
 
 function emptyF(){};
 
