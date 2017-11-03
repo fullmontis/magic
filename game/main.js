@@ -1,6 +1,6 @@
 "use strict";
-var SCREEN_W = 640,
-    SCREEN_H = 480;
+var SCREEN_W = 1024,
+    SCREEN_H = 576;
 
 var SCALE = 1;
 var SCW = SCREEN_W/SCALE;
@@ -44,7 +44,8 @@ game.state['game'].render = function( context )
     context.textAlign = "center";
     context.drawImage(this.image["boot"],SCW/2-50, 50); 
     fillTextWrap(context, "Welcome to the Magic Engine!", SCW/2, 300, 250, 30);
-    
+
+    context.drawImage( this.image.boot, mouse.x - this.image.boot.width/2, mouse.y  - this.image.boot.height/2);
     context.restore();
 };
 

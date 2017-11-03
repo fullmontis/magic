@@ -11,6 +11,7 @@ function Keyboard() {
 	} else {
 	    this.isPressed[key] = true;
 	}
+
 	this.isDown[key] = true;
     }).bind(this), false); 
 

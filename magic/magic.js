@@ -11,6 +11,7 @@ window.onfocus = function() { this.focused = true; };
 function Magic( width, height, parentId, startState, lockMouse )
 {
     var _this = this; // used for reference in objects, ugly as death, must remove
+    var CANVAS_ID = "magic";
 
     // Find useable audio extensions for the browser
     this.audioCodec = (function() {
@@ -28,15 +29,24 @@ function Magic( width, height, parentId, startState, lockMouse )
     this.canvas = document.createElement('canvas');
     this.canvas.width = width;
     this.canvas.height = height;
-
+    this.canvas.id = CANVAS_ID;
+    
     this.canvas.goFullScreen =
 	this.canvas.requestFullScreen ||
 	this.canvas.webkitRequestFullScreen ||
 	this.canvas.mozRequestFullScreen;
-    
-    document.getElementById(parentId).appendChild(this.canvas);
 
+    document.getElementById(parentId).appendChild(this.canvas);
     this.canvas.oncontextmenu = function() { return false; };
+
+    // fullscreen button
+    this.fullButton = document.createElement('button');
+    this.fullButton.innerHTML = "Go Fullscreen";
+    this.fullButton.id = "test";
+    this.fullButton.addEventListener('click', function(){
+	document.getElementById(CANVAS_ID).goFullScreen();
+    });
+    document.getElementById(parentId).appendChild(this.fullButton);
 
     // mouse pointer locking
  
